@@ -43,7 +43,8 @@ class UserController {
         data: token
       })
 
-    } catch (error) {
+    } 
+    catch (error) {
 
       return response.status('400').json({
         status: 'error',
@@ -82,7 +83,7 @@ class UserController {
 
   async me ({ auth, response }) {
 
-    const User = await User.query()
+    const user = await User.query()
       .where('id', auth.current.user.id)
       .with('tweets', builder => {
         builder.with('user')

@@ -57,7 +57,7 @@ class User extends Model {
   }
 
   favorites() {
-    return this.hasMany('App/Models/Favorites')
+    return this.hasMany('App/Models/Favorite')
   }
 }
 

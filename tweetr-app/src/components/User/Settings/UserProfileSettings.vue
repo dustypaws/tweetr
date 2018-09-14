@@ -60,8 +60,8 @@ import UserSettingsMenu from '@/components/User/Settings/UserSettingsMenu'
 export default {
   name: 'UserProfileSettings',
   components: {
-    Notification,
-    UserSettingsMenu
+      Notification,
+      UserSettingsMenu
   },
   data () {
     return {
@@ -88,8 +88,7 @@ export default {
     fetchAuthenticatedUser () {
       const token = localStorage.getItem('tweetr-token')
 
-      axios
-        .get('account/me', {
+      axios.get('account/me', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -100,14 +99,16 @@ export default {
           this.email = response.data.data.email
           this.location = response.data.data.location
           this.bio = response.data.data.bio
-          this.websiteUrl = response.data.data.websiteUrl
+          this.websiteUrl = response.data.data.website_url
+        })
+        .catch(err => {
+          console.log(err)
         })
     },
     updateProfile () {
       const token = localStorage.getItem('tweetr-token')
 
-      axios
-        .put('account/update_profile', {
+      axios.put('account/update_profile', {
           name: this.name,
           username: this.username,
           email: this.email,
@@ -129,3 +130,4 @@ export default {
     }
   }
 }
+</script>

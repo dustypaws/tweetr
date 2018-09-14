@@ -82,8 +82,7 @@ export default {
   },
   methods: {
     signup() {
-      axios
-        .post('/signup', {
+      axios.post('signup', {
           name: this.name,
           username: this.username,
           email: this.email,
