@@ -54,15 +54,16 @@
 </template>
 
 <script>
-import Notifiaction from '@/components/Notification'
+import Notification from '@/components/Notification'
 import UserSettingsMenu from '@/components/User/Settings/UserSettingsMenu'
+
 export default {
   name: 'UserProfileSettings',
   components: {
-    Notifiaction,
+    Notification,
     UserSettingsMenu
   },
-  data() {
+  data () {
     return {
       name: '',
       username: '',
@@ -74,6 +75,57 @@ export default {
         message: '',
         type: ''
       }
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    const token = localStorage.getItem('tweetr-token')
+    return token ? next() : next('/login')
+  },
+  created () {
+    this.fetchAuthenticatedUser()
+      },
+  methods: {
+    fetchAuthenticatedUser () {
+      const token = localStorage.getItem('tweetr-token')
+
+      axios
+        .get('account/me', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          this.name = response.data.data.name
+          this.username = response.data.data.username
+          this.email = response.data.data.email
+          this.location = response.data.data.location
+          this.bio = response.data.data.bio
+          this.websiteUrl = response.data.data.websiteUrl
+        })
+    },
+    updateProfile () {
+      const token = localStorage.getItem('tweetr-token')
+
+      axios
+        .put('account/update_profile', {
+          name: this.name,
+          username: this.username,
+          email: this.email,
+          location: this.location,
+          bio: this.bio,
+          website_url: this.websiteURL
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          this.notification = Object.assign({}, this.notification, {
+            message: response.data.message,
+            type: 'success'
+          })
+        })
     }
   }
 }
