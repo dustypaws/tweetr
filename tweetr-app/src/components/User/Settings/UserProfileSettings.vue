@@ -60,8 +60,8 @@ import UserSettingsMenu from '@/components/User/Settings/UserSettingsMenu'
 export default {
   name: 'UserProfileSettings',
   components: {
-      Notification,
-      UserSettingsMenu
+    Notification,
+    UserSettingsMenu
   },
   data () {
     return {
@@ -83,7 +83,7 @@ export default {
   },
   created () {
     this.fetchAuthenticatedUser()
-      },
+  },
   methods: {
     fetchAuthenticatedUser () {
       const token = localStorage.getItem('tweetr-token')
