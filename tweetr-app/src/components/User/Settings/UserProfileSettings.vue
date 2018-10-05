@@ -102,7 +102,7 @@ export default {
           this.websiteUrl = response.data.data.website_url
         })
         .catch(err => {
-          console.log(err)
+          console.log('This is an Oops!')
         })
     },
     updateProfile () {
